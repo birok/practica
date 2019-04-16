@@ -2,6 +2,8 @@
 
 from odoo import models, fields, api
 
+
+
 class Curso(models.Model):
     _name = 'rnet.curso'
 
@@ -20,5 +22,7 @@ class Sesion(models.Model):
     duracion = fields.Float(string="Duracion", digits=(6,2), help="Duración en días")
     asientos = fields.Integer(string="Asientos")
     instructor_id = fields.Many2one('res.partner', string="Instructor")
-    curso_id = fields.Many2one('rnet.curso', ondelete='cascade',string="Curso", required=True)
-    asistente_ids = fields.Many2many('res.partner', strint="Asistentes")
+    curso_id = fields.Many2one('rnet.curso', ondelete='cascade',string="Curso",
+    required=True)
+    asistente_ids = fields.Many2many('res.partner','persona_sesion_rel','partner_id',
+    'sesion_id',  string="Asistentes")
