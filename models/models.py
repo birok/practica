@@ -57,6 +57,7 @@ class Sesion(models.Model):
                     " reasigne a los reservantes",
                 },
             }
+
     @api.constrains('instructor_id','asistente_ids')
     def _check_instructor_not_in_attendees(self):
         for record in self:
