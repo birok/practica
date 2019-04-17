@@ -36,3 +36,23 @@ class Sesion(models.Model):
                 record.asientosReservados = 0.0
             else:
                 record.asientosReservados = 100 * len(record.asistente_ids) / record.asientos
+
+    @api.onchange('asientos', 'asistente_ids')
+    def _verify_valid_seats(self):
+        self.ensure_one()
+        if self.asientos<0:
+            return{
+                'warning':{
+                    'title': "Número de asientos incorrectos",
+                    'message': "El número de asientos no debe ser negativo",
+                },
+            }
+        if self.asientos < len(self.asistente_ids):
+            return{
+                'warning':{
+                    'title': "Hay demasiados asientos reservados",
+                    'message': "El número de asientos reservados es mayor que los"\
+                    "asientos disponibles. Incremente el número de asientos o"\
+                    "reasigne a los reservantes",
+                },
+            }
