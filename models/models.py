@@ -18,7 +18,7 @@ class Sesion(models.Model):
     _name = 'rnet.sesion'
 
     name = fields.Char(string="Nombre", required=True, default='/')
-    inicio = fields.Date()
+    inicio = fields.Date(default=lambda self: fields.Date.today())
     duracion = fields.Float(string="Duracion", digits=(6,2), help="Duración en días")
     asientos = fields.Integer(string="Asientos")
     instructor_id = fields.Many2one('res.partner', string="Instructor",
@@ -34,5 +34,5 @@ class Sesion(models.Model):
         for record in self:
             if not record.asientos:
                 record.asientosReservados = 0.0
-            else:   
+            else:
                 record.asientosReservados = 100 * len(record.asistente_ids) / record.asientos
