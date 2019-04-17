@@ -63,7 +63,7 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="rnet_session_tree_view">
+    <record model="ir.ui.view" id="rnet_sesion_tree_view">
       <field name="name">rnet.sesion.tree.view</field>
       <field name="model">rnet.sesion</field>
       <field name="arch" type="xml">
@@ -73,6 +73,7 @@
           <field name="duracion"/>
           <field name="instructor_id"/>
           <field name="curso_id"/>
+          <field name="asientosReservados" windget ="progresbar"/>
         </tree>
       </field>
     </record>
@@ -103,6 +104,7 @@
               <group>
                 <field name="instructor_id"/>
                 <field name="duracion"/>
+                <field name="asientosReservados" widget="progresbar"/>
               </group>
             </group>
             <notebook>

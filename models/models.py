@@ -27,3 +27,13 @@ class Sesion(models.Model):
     required=True)
     asistente_ids = fields.Many2many('res.partner','persona_sesion_rel','partner_id',
     'sesion_id',  string="Asistentes")
+    asientosReservados = fields.Float(string="Asientos reservados", compute='_asientosReservados')
+
+    @api.depends('asientos', 'asistente_ids')
+    def _asientosReservados(self):
+        for record in self:
+            if not record.asientos:
+                record.asientosReservados = 0.0
+            else
+                record.asientosReservados = 100 * len(record.asistente_ids) / record.asientos
+                
