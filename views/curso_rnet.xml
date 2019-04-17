@@ -73,7 +73,7 @@
           <field name="duracion"/>
           <field name="instructor_id"/>
           <field name="curso_id"/>
-          <field name="asientosReservados" windget ="progresbar"/>
+          <field name="asientosReservados" widget ="progresbar"/>
         </tree>
       </field>
     </record>
