@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+from odoo import models, fields, api, exceptions
 
 
 
@@ -40,7 +40,8 @@ class Sesion(models.Model):
     @api.onchange('asientos', 'asistente_ids')
     def _verify_valid_seats(self):
         self.ensure_one()
-        if self.asientos<0:
+        if self.asientos < 0:
+            self.asientos = 0
             return{
                 'warning':{
                     'title': "Número de asientos incorrectos",
@@ -52,7 +53,12 @@ class Sesion(models.Model):
                 'warning':{
                     'title': "Hay demasiados asientos reservados",
                     'message': "El número de asientos reservados es mayor que los"\
-                    "asientos disponibles. Incremente el número de asientos o"\
-                    "reasigne a los reservantes",
+                    " asientos disponibles. Incremente el número de asientos o"\
+                    " reasigne a los reservantes",
                 },
             }
+    @api.constrains('instructor_id','asistente_ids')
+        def _check_instructor_not_in_attendees(self):
+            for record in self:
+                if record.instructor_id and record.instructor_id in record.asistentes_ids:
+                    raise exceptions.ValidationError("El instructor de la sesion no puede estar entre los reservantes")
