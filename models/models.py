@@ -13,6 +13,16 @@ class Curso(models.Model):
         ondelete = 'set null', string = "Responsable", index=True)
     sesion_ids = fields.One2many('rnet.sesion', 'curso_id', string="Sesiones")
 
+    _sql_constraints = [
+        ('verificar_nombre_descripcion',
+         'CHECK(name != descripcion)',
+         "El nombre de un curso no debe ser su descripción"),
+
+        ('nombre_unico',
+         'UNIQUE(name)',
+         "El nombre del curso debe ser único"),
+    ]
+
 
 class Sesion(models.Model):
     _name = 'rnet.sesion'
