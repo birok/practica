@@ -60,5 +60,5 @@ class Sesion(models.Model):
     @api.constrains('instructor_id','asistente_ids')
     def _check_instructor_not_in_attendees(self):
         for record in self:
-            if record.instructor_id and record.instructor_id in record.asistentes_ids:
+            if record.instructor_id and record.instructor_id in record.asistente_ids:
                 raise exceptions.ValidationError("El instructor de la sesion no puede estar entre los reservantes")
