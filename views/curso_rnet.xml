@@ -9,7 +9,7 @@
           <field name="name"/>
           <field name="descripcion"/>
           <filter name="mis_cursos" string="Mis Cursos"
-                  domain="Group By">
+                  domain="[('responsable_id', '=', uid)]"/>
           <group string="Group By">
               <filter name="responsable" string="Responsable"
                       context="{'group_by': 'responsable_id'}"/>
